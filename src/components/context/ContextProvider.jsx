@@ -14,7 +14,7 @@ const ContextProvider = ({ children }) => {
   const [player, setPlayer] = useState(null);
   const handleInput = (e) => {
     setId(getYouTubeID(e.target.value));
-    console.log("handleinput", id);
+    
   };
   const toggling = () => {
     if (toggle === language[0]) {
@@ -35,7 +35,7 @@ const ContextProvider = ({ children }) => {
 
     const month = newDate.toLocaleString("default", { month: "long" });
     const datefull = `${date} ${month} ${year}`;
-    console.log("addnote", props);
+    
     setNotes([
       ...notes,
       { ID: id, note: props, timestamp: currentTime, currentDate: datefull },
@@ -68,7 +68,6 @@ const ContextProvider = ({ children }) => {
       })
     );
   };
-  console.log("delete", id, notes);
 
   return (
     <Context.Provider

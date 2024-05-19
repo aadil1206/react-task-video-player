@@ -176,7 +176,7 @@ const Notes = () => {
   };
   const updateNotesModal = (id) => {
     setupdateBranchModal(true);
-    console.log("id", id);
+    
     setupdateId(id);
   };
   const handleCloseUpdate = () => {
@@ -196,7 +196,7 @@ const Notes = () => {
     });
     handleCloseUpdate();
   };
-  console.log("object", notes, updateId, Image);
+  
   return (
     <div className="notes-main">
       <div className="notes-addnote-main d-flex flex-column">

@@ -16,7 +16,7 @@ const Video = () => {
       autoplay: 1,
     },
   };
-  console.log("id", id);
+  
   const handleReady = (e) => {
     setPlayer(e.target);
   };
