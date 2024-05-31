@@ -26,6 +26,12 @@
   background-color: white;
   margin-right: 12px;
 }
+.url-text{
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 38px;
+  color: #101828;
+}
 .editbtn {
   border: none;
   border: 1.5px solid #eaecf0;
