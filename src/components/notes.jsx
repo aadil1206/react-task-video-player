@@ -149,6 +149,7 @@ const Notes = () => {
     (await value) && handleNotes(value);
     await uploadImage(Image[0]);
     handleClose();
+    setValue("")
   };
   const handleHtml = (item) => {
     const summary = item
@@ -251,7 +252,7 @@ const Notes = () => {
         </Modal>
         {/* {baseImage&&<img src={baseImage} height="200px" />} */}
         {notes?.map((item, index) => {
-          if (item.ID === id && id !== null) {
+          if (item.videoID === id && id !== null) {
             return (
               <div className="d-flex col-12 col-xl-12 flex-column">
                 <div className="mt-2">
@@ -273,13 +274,13 @@ const Notes = () => {
                 </div>
                 <div className="col-12 col-xl-12 d-flex justify-content-end">
                   <button
-                    onClick={() => removeNotes(item.ID)}
+                    onClick={() => removeNotes(item.useId)}
                     className="col-4 col-xl-1 col-lg-2 col-md-3 col-sm-4 delbtn"
                   >
                     Delete Note
                   </button>
                   <button
-                    onClick={() => updateNotesModal(item.ID)}
+                    onClick={() => updateNotesModal(item.useId)}
                     className="col-4 col-xl-1 col-lg-2 col-md-3 col-sm-4 editbtn"
                   >
                     Edit Note

@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import Context from "./index";
 import getYouTubeID from "get-youtube-id";
+import { v4 as uuidv4 } from "uuid";
 
 const ContextProvider = ({ children }) => {
   const language = ["java", "javascript"];
@@ -38,16 +39,17 @@ const ContextProvider = ({ children }) => {
     
     setNotes([
       ...notes,
-      { ID: id, note: props, timestamp: currentTime, currentDate: datefull },
+      { videoID: id, note: props, timestamp: currentTime, currentDate: datefull,useId:uuidv4() },
     ]);
   };
+  console.log(notes)
   const removeNotes = (id) => {
     setNotes(
       notes.map((item) => {
-        if (item.ID === id) {
+        if (item.useId === id) {
           return {
             ...item,
-            ID: null,
+            videoID: null,
           };
         }
         return item;
@@ -58,7 +60,7 @@ const ContextProvider = ({ children }) => {
     const newNote = props[1];
     setNotes(
       notes.map((item) => {
-        if (item.ID === props[0]) {
+        if (item.useId === props[0]) {
           return {
             ...item,
             note: newNote,
