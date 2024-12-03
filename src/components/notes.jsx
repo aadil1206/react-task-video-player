@@ -149,7 +149,7 @@ const Notes = () => {
     (await value) && handleNotes(value);
     await uploadImage(Image[0]);
     handleClose();
-    setValue("")
+    setValue("");
   };
   const handleHtml = (item) => {
     const summary = item
@@ -177,7 +177,7 @@ const Notes = () => {
   };
   const updateNotesModal = (id) => {
     setupdateBranchModal(true);
-    
+
     setupdateId(id);
   };
   const handleCloseUpdate = () => {
@@ -197,7 +197,7 @@ const Notes = () => {
     });
     handleCloseUpdate();
   };
-  
+
   return (
     <div className="notes-main">
       <div className="notes-addnote-main d-flex flex-column">

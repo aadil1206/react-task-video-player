@@ -16,17 +16,22 @@ const Video = () => {
       autoplay: 1,
     },
   };
-  
+
   const handleReady = (e) => {
     setPlayer(e.target);
   };
   return (
     <div className="video-main">
-    <div className="d-flex justify-content-between align-items-center col-12 mb-3 urlmain">
-    <p className="videoMain-text col-6">Video Player With Notes</p>
-    <div className="col-6 d-flex flex-column">
-    <p className="url-text">Paste Your Youtube Url here</p>
-      <input type="text" onChange={handleInput} className="col-12 col-sm-12" /></div>
+      <div className="d-flex justify-content-between align-items-center col-12 mb-3 urlmain">
+        <p className="videoMain-text col-6">Video Player With Notes</p>
+        <div className="col-6 d-flex flex-column">
+          <p className="url-text">Paste Your Youtube Url here</p>
+          <input
+            type="text"
+            onChange={handleInput}
+            className="col-12 col-sm-12"
+          />
+        </div>
       </div>
       <YouTube videoId={id} opts={opts} ref={videoRef} onReady={handleReady} />
       <div className="d-flex flex-column justify-content-start mb-3">

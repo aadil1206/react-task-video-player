@@ -9,13 +9,14 @@ const ContextProvider = ({ children }) => {
   const [baseImage, setBaseImage] = useState("");
   const [TimeStamp, setTimeStamp] = useState("");
   const [Image, setImage] = useState("");
+  const [EmaiDB, setEmailDB] = useState("");
+  const [PasswordDB, setPasswordDB] = useState("");
   const videoRef = useRef(null);
 
   const [id, setId] = useState(null);
   const [player, setPlayer] = useState(null);
   const handleInput = (e) => {
     setId(getYouTubeID(e.target.value));
-    
   };
   const toggling = () => {
     if (toggle === language[0]) {
@@ -36,13 +37,19 @@ const ContextProvider = ({ children }) => {
 
     const month = newDate.toLocaleString("default", { month: "long" });
     const datefull = `${date} ${month} ${year}`;
-    
+
     setNotes([
       ...notes,
-      { videoID: id, note: props, timestamp: currentTime, currentDate: datefull,useId:uuidv4() },
+      {
+        videoID: id,
+        note: props,
+        timestamp: currentTime,
+        currentDate: datefull,
+        useId: uuidv4(),
+      },
     ]);
   };
-  console.log(notes)
+  console.log(notes);
   const removeNotes = (id) => {
     setNotes(
       notes.map((item) => {
@@ -93,6 +100,10 @@ const ContextProvider = ({ children }) => {
         updateNotes,
         Image,
         setImage,
+        EmaiDB,
+        setEmailDB,
+        PasswordDB,
+        setPasswordDB,
       }}
     >
       {children}

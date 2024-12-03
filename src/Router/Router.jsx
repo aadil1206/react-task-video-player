@@ -13,12 +13,12 @@ const AllRoutes = () => {
     <>
       <Router>
         <Routes>
-          <Route element={<PrivateRoutes />} >
-            <Route path='/*' element={<Layout />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/*" element={<Layout />} />
           </Route>
-          <Route path='/' element={<Login />} />
-          <Route path='/forgotPassword' element={<ForgotPassword />} />
-          <Route path='/resetPassword' element={<ResetPassword />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/forgotPassword" element={<ForgotPassword />} />
+          <Route path="/resetPassword" element={<ResetPassword />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </Router>
