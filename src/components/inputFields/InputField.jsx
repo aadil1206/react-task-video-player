@@ -15,7 +15,7 @@ const InputField = (props) => {
   return (
     <div className={`flex flex-col gap-2 w-full ${className}`}>
       {label ? (
-        <label className="text-white" htmlFor={htmlFor}>
+        <label className="text-[#121212]" htmlFor={htmlFor}>
           {label}
         </label>
       ) : null}

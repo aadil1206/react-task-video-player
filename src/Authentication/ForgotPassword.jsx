@@ -86,7 +86,7 @@ const ForgotPassword = () => {
       <div className="login-container container mx-auto">
         <div className="grid grid-cols-4 gap-4 login-wrapper w-full">
           <div className="col-span-1 hidden sm:flex"></div>
-          <div className="col-span-2  flex flex-col justify-center items-center gap-3 p-8 lg:p-16 lg:bg-[#d9d9d940]">
+          <div className="sm:col-span-2 col-span-4  flex flex-col justify-center items-center gap-3 p-8 lg:p-16 lg:bg-[#d9d9d940]">
             <div className="flex flex-col gap-1 w-full mb-5">
               <Link
                 className="brand-logo mb-5"

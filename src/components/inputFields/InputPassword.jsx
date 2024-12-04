@@ -32,7 +32,7 @@ const InputPassword = (props) => {
     <div className="flex flex-col gap-2 w-full">
       <div className="flex justify-between items-start">
         {label ? (
-          <label className="text-white" htmlFor={htmlFor}>
+          <label className="text-[#121212]" htmlFor={htmlFor}>
             {label}
           </label>
         ) : null}

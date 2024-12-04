@@ -120,9 +120,9 @@ const Login = () => {
     <div className="login-container container mx-auto">
       <div className="grid  grid-cols-4 p-4 login-wrapper w-full mx-auto content-center">
         <div className="col-span-1 hidden sm:flex"></div>
-        <div className="col-span-2  flex flex-col justify-center items-center gap-3 p-8 lg:p-16 bg-[#ff9933]">
+        <div className="col-span-4 sm:col-span-2  flex flex-col justify-center items-center gap-3 p-8 lg:p-16 bg-[#ff9933]">
           <div className="flex flex-col gap-1 w-full mb-8">
-            <div className="text-sm lg:text-sm text-white">
+            <div className="text-sm lg:text-sm text-[#121212]">
               Please sign-in to your account
             </div>
           </div>
@@ -153,7 +153,7 @@ const Login = () => {
 
             <button
               type="submit"
-              className={` text-center py-2 rounded-lg`}
+              className={` rounded-lg w-[140px] h-[36px] bg-[#121212] text-white`}
               onClick={handleSubmit}
             >
               Sign in

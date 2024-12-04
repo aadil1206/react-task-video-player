@@ -113,3 +113,15 @@ p {
     flex-direction: column;
   }
 }
+.djfy-toast {
+  background-color: #ff9933 !important;
+  color: #000 !important;
+  height: 70px !important;
+}
+
+.Toastify__progress-bar {
+  height: 3px !important;
+  margin: 0 8px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #ec3434, #f7aa16) !important;
+}

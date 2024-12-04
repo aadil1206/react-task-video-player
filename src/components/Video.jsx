@@ -29,7 +29,7 @@ const Video = () => {
           <input
             type="text"
             onChange={handleInput}
-            className="col-12 col-sm-12"
+            className="col-12 col-sm-12 border-[1px] border-[#121212] rounded-[8px] h-[34px] px-3"
           />
         </div>
       </div>
