@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import Context from "../components/context";
+import React from 'react';
 
 const PrivateRoutes = () => {
   const token = localStorage.getItem("email");

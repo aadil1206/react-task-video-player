@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import React from 'react';
 import { Link } from "react-router-dom";
 import InputField from "../components/inputFields/InputField";
 import validate from "validate.js";
