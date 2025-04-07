@@ -9,7 +9,7 @@ const ContextProvider = ({ children }) => {
   const [baseImage, setBaseImage] = useState("");
   const [TimeStamp, setTimeStamp] = useState("");
   const [Image, setImage] = useState("");
-  const [EmaiDB, setEmailDB] = useState("");
+  const [EmaiDB, setEmailDB] = useState<string>("");
   const [PasswordDB, setPasswordDB] = useState("");
   const videoRef = useRef(null);
 
