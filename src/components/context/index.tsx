@@ -9,6 +9,6 @@ type AuthContextType = {
   };
 
 export const Context = createContext<AuthContextType>("");
-const Context = createContext("");
+
 
 export default Context;
