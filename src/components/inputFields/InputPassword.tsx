@@ -6,8 +6,19 @@ import React from 'react';
 // ** Third Party Components
 
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+type propss ={
+  label:string,
+  placeholder:string,
+  htmlFor:string,
 
-const InputPassword = (props) => {
+  error:string,
+  errorMsg:string,
+  value:number,
+  onChange:()=>void,
+  forgotPassword:number
+}
+
+const InputPassword = (props:propss) => {
   const {
     label,
     htmlFor,
@@ -19,7 +30,7 @@ const InputPassword = (props) => {
     onChange,
   } = props;
 
-  const [inputVisibility, setInputVisibility] = useState(false);
+  const [inputVisibility, setInputVisibility] = useState<boolean>(false);
 
   const renderIcon = () => {
     if (inputVisibility === false) {

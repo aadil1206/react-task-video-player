@@ -1,8 +1,20 @@
 import React from 'react';
 
 
+type propss ={
+  label:string,
+  placeholder:string,
+  htmlFor:string,
 
-const InputField = (props) => {
+  error:string,
+  errorMsg:string,
+  value:number,
+  onChange:()=>void,
+  textSize:number,
+  height:number,
+  className:string
+}
+const InputField = (props:propss) => {
   const {
     label,
     htmlFor,
