@@ -1,19 +1,17 @@
-import { useState, useEffect } from "react";
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-
 import { toast } from "react-toastify";
 
 import ErrorPage from "../error/ErrorPage";
 import MainPage from "../components/MainPage";
 
-const Layout = () => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isHoveredDelay, setIsHoveredDelay] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
-  let timeoutId = null;
+const Layout: React.FC = () => {
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [isHoveredDelay, setIsHoveredDelay] = useState<boolean>(false);
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+  let timeoutId: NodeJS.Timeout | null = null;
 
-  const toggleSidebar = () => {
+  const toggleSidebar = (): void => {
     if (!isChecked) {
       setIsHovered(true);
       timeoutId = setTimeout(() => {
@@ -31,6 +29,7 @@ const Layout = () => {
 
     setIsChecked(!isChecked);
   };
+
   return (
     <>
       <div
@@ -40,7 +39,6 @@ const Layout = () => {
       >
         <Routes>
           <Route path="mainPage" element={<MainPage />} />
-
           <Route path="*" element={<ErrorPage />} />
         </Routes>
       </div>
