@@ -8,7 +8,7 @@ type AuthContextType = {
     setPasswordDB: (value: string) => void;
   };
 
-export const Context = createContext<AuthContextType>("");
+export const Context = createContext<AuthContextType|undefined>(undefined);
 
 
 export default Context;

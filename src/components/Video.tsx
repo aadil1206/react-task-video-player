@@ -21,6 +21,7 @@ const Video = () => {
   const handleReady = (e) => {
     setPlayer(e.target);
   };
+  console.log(player)
   return (
     <div className="video-main">
       <div className="d-flex justify-content-between align-items-center col-12 mb-3 urlmain">

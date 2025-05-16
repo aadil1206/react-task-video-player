@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState ,ChangeEvent} from "react";
 import Context from "./index";
 import getYouTubeID from "get-youtube-id";
 import { v4 as uuidv4 } from "uuid";
@@ -10,12 +10,16 @@ const ContextProvider = ({ children }) => {
   const [TimeStamp, setTimeStamp] = useState("");
   const [Image, setImage] = useState("");
   const [EmaiDB, setEmailDB] = useState<string>("");
-  const [PasswordDB, setPasswordDB] = useState("");
+
+  type passowrddb ={
+
+  }
+  const [PasswordDB, setPasswordDB] = useState<string>("");
   const videoRef = useRef(null);
 
-  const [id, setId] = useState(null);
-  const [player, setPlayer] = useState(null);
-  const handleInput = (e) => {
+  const [id, setId] = useState();
+  const [player, setPlayer] = useState<any>(null);
+  const handleInput = (e:ChangeEvent<HTMLInputElement>) => {
     setId(getYouTubeID(e.target.value));
   };
   const toggling = () => {
@@ -25,11 +29,11 @@ const ContextProvider = ({ children }) => {
       settoggle(language[0]);
     }
   };
-  const handleSeek = (props) => {
+  const handleSeek = (props:any) => {
     player.seekTo(props + 0);
   };
   const [notes, setNotes] = useState([]);
-  const handleNotes = (props) => {
+  const handleNotes = (props:any) => {
     const currentTime = player.getCurrentTime();
     const newDate = new Date();
     let date = newDate.getDate();
