@@ -2,6 +2,7 @@ import React, { useRef, useState ,ChangeEvent} from "react";
 import Context from "./index";
 import getYouTubeID from "get-youtube-id";
 import { v4 as uuidv4 } from "uuid";
+import YouTube, { YouTubePlayer } from 'react-youtube';
 
 const ContextProvider = ({ children }) => {
   const language = ["java", "javascript"];
@@ -18,7 +19,7 @@ const ContextProvider = ({ children }) => {
   const videoRef = useRef(null);
 
   const [id, setId] = useState();
-  const [player, setPlayer] = useState<any>(null);
+  const [player, setPlayer] = useState<YouTubePlayer>();
   const handleInput = (e:ChangeEvent<HTMLInputElement>) => {
     setId(getYouTubeID(e.target.value));
   };
@@ -33,7 +34,7 @@ const ContextProvider = ({ children }) => {
     player.seekTo(props + 0);
   };
   const [notes, setNotes] = useState([]);
-  const handleNotes = (props:any) => {
+  const handleNotes = (props:string) => {
     const currentTime = player.getCurrentTime();
     const newDate = new Date();
     let date = newDate.getDate();
@@ -54,7 +55,7 @@ const ContextProvider = ({ children }) => {
     ]);
   };
   console.log(notes);
-  const removeNotes = (id) => {
+  const removeNotes = (id:number) => {
     setNotes(
       notes.map((item) => {
         if (item.useId === id) {
@@ -67,7 +68,7 @@ const ContextProvider = ({ children }) => {
       })
     );
   };
-  const updateNotes = (props) => {
+  const updateNotes = (props:string) => {
     const newNote = props[1];
     setNotes(
       notes.map((item) => {

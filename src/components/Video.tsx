@@ -1,5 +1,5 @@
 import React from "react";
-import YouTube from "react-youtube";
+import YouTube , {YouTubeProps} from "react-youtube";
 import "../App.css";
 import { useContext, useState } from "react";
 
@@ -9,7 +9,7 @@ const Video = () => {
   const [url, seturl] = useState(null);
 
   const { handleInput, id, videoRef, player, setPlayer } = useContext(Context);
-  const opts = {
+  const opts:YouTubeProps['opts'] = {
     height: "400",
     width: "100%",
     playerVars: {
@@ -18,7 +18,7 @@ const Video = () => {
     },
   };
 
-  const handleReady = (e) => {
+  const handleReady:YouTubeProps['onReady'] = (e) => {
     setPlayer(e.target);
   };
   console.log(player)
