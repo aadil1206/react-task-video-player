@@ -30,21 +30,21 @@ const ContextProvider = ({ children }: { children: React.ReactNode }) => {
       settoggle(language[0]);
     }
   };
-  const handleSeek = (props:any) => {
-    player.seekTo(props + 0);
+  const handleSeek = (props:number) => {
+    player?.seekTo(props +0, true);
   };
 
   interface Note {
-    videoID: string;
+    videoID: number|undefined;
     note: string; // or whatever type `props` is
-    timestamp: number;
+    timestamp: number|undefined;
     currentDate: string;
     useId: string;
   }
 
   const [notes, setNotes] = useState<Note[]>([]);
   const handleNotes = (props:string) => {
-    const currentTime = player.getCurrentTime();
+    const currentTime = player?.getCurrentTime();
     const newDate = new Date();
     let date = newDate.getDate();
     let year = newDate.getFullYear();

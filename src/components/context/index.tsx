@@ -16,6 +16,7 @@ type AuthContextType = {
     setPasswordDB: (value: string) => void;
     language: string[];
     toggle: string;
+    
     baseImage:string;
     setBaseImage:(value: string) => void;
     settoggle: (value: string) => void;
