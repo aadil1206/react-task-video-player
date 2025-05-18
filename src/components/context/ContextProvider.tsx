@@ -4,10 +4,10 @@ import getYouTubeID from "get-youtube-id";
 import { v4 as uuidv4 } from "uuid";
 import YouTube, { YouTubePlayer } from 'react-youtube';
 
-const ContextProvider = ({ children }) => {
+const ContextProvider = ({ children }: { children: React.ReactNode }) => {
   const language = ["java", "javascript"];
   const [toggle, settoggle] = useState(language[0]);
-  const [baseImage, setBaseImage] = useState("");
+  const [baseImage, setBaseImage] = useState<string>("");
   const [TimeStamp, setTimeStamp] = useState("");
   const [Image, setImage] = useState("");
   const [EmaiDB, setEmailDB] = useState<string>("");
@@ -33,7 +33,16 @@ const ContextProvider = ({ children }) => {
   const handleSeek = (props:any) => {
     player.seekTo(props + 0);
   };
-  const [notes, setNotes] = useState([]);
+
+  interface Note {
+    videoID: string;
+    note: string; // or whatever type `props` is
+    timestamp: number;
+    currentDate: string;
+    useId: string;
+  }
+
+  const [notes, setNotes] = useState<Note[]>([]);
   const handleNotes = (props:string) => {
     const currentTime = player.getCurrentTime();
     const newDate = new Date();
