@@ -16,12 +16,14 @@ const ContextProvider = ({ children }: { children: React.ReactNode }) => {
 
   }
   const [PasswordDB, setPasswordDB] = useState<string>("");
-  const videoRef = useRef(null);
+  
+const videoRef = useRef<YouTubePlayer | null>(null);
 
-  const [id, setId] = useState();
-  const [player, setPlayer] = useState<YouTubePlayer>();
+  const [id, setId] = useState<string | null>(null);
+const [player, setPlayer] = useState<YouTubePlayer | null>(null);
   const handleInput = (e:ChangeEvent<HTMLInputElement>) => {
-    setId(getYouTubeID(e.target.value));
+     const videoId = getYouTubeID(e.target.value) ?? "";
+  setId(videoId);
   };
   const toggling = () => {
     if (toggle === language[0]) {
@@ -35,7 +37,7 @@ const ContextProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   interface Note {
-    videoID: number|undefined;
+    videoID: string;
     note: string; // or whatever type `props` is
     timestamp: number|undefined;
     currentDate: string;
@@ -43,8 +45,8 @@ const ContextProvider = ({ children }: { children: React.ReactNode }) => {
   }
 
   const [notes, setNotes] = useState<Note[]>([]);
-  const handleNotes = (props:string) => {
-    const currentTime = player?.getCurrentTime();
+  const handleNotes = async (props:string) => {
+    const currentTime = await player?.getCurrentTime();
     const newDate = new Date();
     let date = newDate.getDate();
     let year = newDate.getFullYear();
@@ -55,7 +57,7 @@ const ContextProvider = ({ children }: { children: React.ReactNode }) => {
     setNotes([
       ...notes,
       {
-        videoID: id,
+        videoID: id??"",
         note: props,
         timestamp: currentTime,
         currentDate: datefull,
@@ -64,13 +66,13 @@ const ContextProvider = ({ children }: { children: React.ReactNode }) => {
     ]);
   };
   console.log(notes);
-  const removeNotes = (id:number) => {
+  const removeNotes = (id:string) => {
     setNotes(
       notes.map((item) => {
         if (item.useId === id) {
           return {
             ...item,
-            videoID: null,
+            videoID: "",
           };
         }
         return item;
