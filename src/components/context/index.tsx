@@ -30,6 +30,13 @@ type AuthContextType = {
   setId: React.Dispatch<React.SetStateAction<string | null>>;  // setId function
     player: YouTubePlayer | null;
   setPlayer: React.Dispatch<React.SetStateAction<YouTubePlayer | null>>;
+   removeNotes: (id: string) => void; // ✅ <--- Add this line
+  handleNotes :(props:string) => void;
+   TimeStamp: string; // ✅ <--- add this
+  setTimeStamp: React.Dispatch<React.SetStateAction<string>>; // ✅ <--- and this
+  updateNotes : (props:string) => void;
+  Image: File | null; // ✅ <--- add this
+  setImage: React.Dispatch<React.SetStateAction<File | null>>; // ✅ <--- and this
   };
 
 export const Context = createContext<AuthContextType|undefined>(undefined);

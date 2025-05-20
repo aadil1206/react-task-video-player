@@ -9,7 +9,7 @@ const ContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [toggle, settoggle] = useState(language[0]);
   const [baseImage, setBaseImage] = useState<string>("");
   const [TimeStamp, setTimeStamp] = useState("");
-  const [Image, setImage] = useState("");
+const [Image, setImage] = useState<File | null>(null);
   const [EmaiDB, setEmailDB] = useState<string>("");
 
   type passowrddb ={
@@ -98,6 +98,7 @@ const [player, setPlayer] = useState<YouTubePlayer | null>(null);
     <Context.Provider
       value={{
         toggle,
+        settoggle,
         toggling,
         language,
         handleInput,
@@ -107,6 +108,7 @@ const [player, setPlayer] = useState<YouTubePlayer | null>(null);
         handleSeek,
         videoRef,
         id,
+        setId,
         player,
         removeNotes,
         handleNotes,
