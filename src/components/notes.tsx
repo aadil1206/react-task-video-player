@@ -17,6 +17,12 @@ import {
 } from "reactstrap";
 
 const Notes = () => {
+  const context = useContext(Context);
+
+if (!context) {
+  throw new Error("Context must be used within a ContextProvider");
+}
+
   const {
     toggle,
     toggling,
@@ -32,7 +38,7 @@ const Notes = () => {
     TimeStamp,
     setTimeStamp,
     id,
-  } = useContext(Context);
+  } = context;
   const [addBranchModal, setAddBranchModal] = useState(false);
   const [value, setValue] = useState("");
   const [updateBranchModal, setupdateBranchModal] = useState(false);
@@ -141,17 +147,17 @@ const Notes = () => {
     "align",
     "size",
   ];
-  const handleChangeQuill = (text) => {
+  const handleChangeQuill = (text:string) => {
     setValue(text);
   };
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     (await value) && handleNotes(value);
     await uploadImage(Image[0]);
     handleClose();
     setValue("");
   };
-  const handleHtml = (item) => {
+  const handleHtml = (item:string) => {
     const summary = item
       .replace(/<[^>]*>/g, " ")
       .replace(/\s{2,}/g, " ")
@@ -183,7 +189,7 @@ const Notes = () => {
   const handleCloseUpdate = () => {
     setupdateBranchModal(!updateBranchModal);
   };
-  const handleChangeQuillUpdate = (props) => {
+  const handleChangeQuillUpdate = (props:string) => {
     setValue(props);
   };
   const handleSubmitUpdate = async (e) => {

@@ -7,8 +7,13 @@ import Context from "./context";
 
 const Video = () => {
   const [url, seturl] = useState(null);
+const context = useContext(Context);
 
-  const { handleInput, id, videoRef, player, setPlayer } = useContext(Context);
+if (!context) {
+  throw new Error("Context must be used within a Provider");
+}
+
+const { handleInput, id, videoRef, player, setPlayer } = context;
   const opts:YouTubeProps['opts'] = {
     height: "400",
     width: "100%",
