@@ -1,5 +1,5 @@
 import React from "react";
-import YouTube , {YouTubeProps} from "react-youtube";
+import YouTube , {YouTubeProps,YouTubePlayer} from "react-youtube";
 import "../App.css";
 import { useContext, useState } from "react";
 
@@ -23,9 +23,9 @@ const { handleInput, id, videoRef, player, setPlayer } = context;
     },
   };
 
-  const handleReady:YouTubeProps['onReady'] = (e) => {
-    setPlayer(e.target);
-  };
+const handleReady = (event: { target: YouTubePlayer }) => {
+  videoRef.current = event.target;
+};
   console.log(player)
   return (
     <div className="video-main">
@@ -40,7 +40,7 @@ const { handleInput, id, videoRef, player, setPlayer } = context;
           />
         </div>
       </div>
-      <YouTube videoId={id} opts={opts} ref={videoRef} onReady={handleReady} />
+      <YouTube videoId={id} opts={opts}  onReady={handleReady} />
       <div className="d-flex flex-column justify-content-start mb-3">
         <p className="videoTitleMain">Video title goes here</p>
         <p>This is the description of the video</p>

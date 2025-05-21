@@ -13,7 +13,8 @@ interface Note {
 type AuthContextType = {
     EmaiDB: string;
     setEmailDB: (value: string) => void;
-      videoRef: React.RefObject<YouTubePlayer | null>; // <--- here
+videoRef: React.MutableRefObject<YouTubePlayer | null>;
+
     PasswordDB: string;
     setPasswordDB: (value: string) => void;
     language: string[];
@@ -26,8 +27,8 @@ type AuthContextType = {
     handleInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
     notes: Note[];
     handleSeek: (time: number) => void;
-      id: string | null;             // id state
-  setId: React.Dispatch<React.SetStateAction<string | null>>;  // setId function
+      id: string | undefined;             // id state
+  setId: React.Dispatch<React.SetStateAction<string | undefined>>;  // setId function
     player: YouTubePlayer | null;
   setPlayer: React.Dispatch<React.SetStateAction<YouTubePlayer | null>>;
    removeNotes: (id: string) => void; // ✅ <--- Add this line

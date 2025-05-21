@@ -19,7 +19,8 @@ const [Image, setImage] = useState<File | null>(null);
   
 const videoRef = useRef<YouTubePlayer | null>(null);
 
-  const [id, setId] = useState<string | null>(null);
+  const [id, setId] = useState<string | undefined>(undefined);
+
 const [player, setPlayer] = useState<YouTubePlayer | null>(null);
   const handleInput = (e:ChangeEvent<HTMLInputElement>) => {
      const videoId = getYouTubeID(e.target.value) ?? "";
