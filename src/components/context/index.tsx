@@ -35,7 +35,8 @@ videoRef: React.MutableRefObject<YouTubePlayer | null>;
   handleNotes :(props:string) => void;
    TimeStamp: string; // ✅ <--- add this
   setTimeStamp: React.Dispatch<React.SetStateAction<string>>; // ✅ <--- and this
-  updateNotes : (props:string) => void;
+  updateNotes: ([id, newNote]: [string, string]) => void;
+
   Image: File | null; // ✅ <--- add this
   setImage: React.Dispatch<React.SetStateAction<File | null>>; // ✅ <--- and this
   };

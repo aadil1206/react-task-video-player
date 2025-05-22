@@ -8,20 +8,15 @@ import { DropzoneArea } from "mui-file-dropzone";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import {
-  Button,
-  FormGroup,
-  Input,
-  InputGroup,
-  InputGroupText,
   Label,
 } from "reactstrap";
 
-const Notes = () => {
+const Notes: React.FC = () => {
   const context = useContext(Context);
 
-if (!context) {
-  throw new Error("Context must be used within a ContextProvider");
-}
+  if (!context) {
+    throw new Error("Context must be used within a ContextProvider");
+  }
 
   const {
     toggle,
@@ -39,98 +34,57 @@ if (!context) {
     setTimeStamp,
     id,
   } = context;
-  const [addBranchModal, setAddBranchModal] = useState(false);
-  const [value, setValue] = useState("");
-  const [updateBranchModal, setupdateBranchModal] = useState(false);
-  const [updateId, setupdateId] = useState([]);
 
-  const addNote = () => {
-    setAddBranchModal(!addBranchModal);
-  };
-  const handleClose = () => {
-    setAddBranchModal(!addBranchModal);
-  };
-  const uploadImage = async (file) => {
+  const [addBranchModal, setAddBranchModal] = useState<boolean>(false);
+  const [fileObjects, setFileObjects] = useState<File[]>([]);
+
+  const [value, setValue] = useState<string>("");
+  const [updateBranchModal, setupdateBranchModal] = useState<boolean>(false);
+  const [updateId, setupdateId] = useState<string>("");
+
+  const addNote = () => setAddBranchModal(true);
+  const handleClose = () => setAddBranchModal(false);
+
+  const uploadImage = async (file: File) => {
     const base64 = await convertBase64(file);
     setBaseImage(base64);
-    localStorage.setItem("base64", baseImage);
+    localStorage.setItem("base64", base64);
   };
-  const convertBase64 = (file) => {
-    return new Promise((resolve, reject) => {
+
+  const convertBase64 = (file: File): Promise<string> =>
+    new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(file);
 
       fileReader.onload = () => {
-        resolve(fileReader.result);
+        if (typeof fileReader.result === "string") {
+          resolve(fileReader.result);
+        } else {
+          reject(new Error("FileReader result is not a string"));
+        }
       };
 
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
+      fileReader.onerror = (error) => reject(error);
     });
-  };
 
-  let modules = {
+  const modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, false] }],
       [{ size: [] }],
       [{ font: [] }],
-
       ["bold", "italic", "underline", "strike", "blockquote"],
       [{ list: "ordered" }, { list: "bullet" }],
       ["link", "image"],
       [
-        { list: "ordered" },
-        { list: "bullet" },
         { indent: "-1" },
         { indent: "+1" },
         { align: [] },
       ],
-      [
-        {
-          color: [
-            "#000000",
-            "#e60000",
-            "#ff9900",
-            "#ffff00",
-            "#008a00",
-            "#0066cc",
-            "#9933ff",
-            "#ffffff",
-            "#facccc",
-            "#ffebcc",
-            "#ffffcc",
-            "#cce8cc",
-            "#cce0f5",
-            "#ebd6ff",
-            "#bbbbbb",
-            "#f06666",
-            "#ffc266",
-            "#ffff66",
-            "#66b966",
-            "#66a3e0",
-            "#c285ff",
-            "#888888",
-            "#a10000",
-            "#b26b00",
-            "#b2b200",
-            "#006100",
-            "#0047b2",
-            "#6b24b2",
-            "#444444",
-            "#5c0000",
-            "#663d00",
-            "#666600",
-            "#003700",
-            "#002966",
-            "#3d1466",
-            "custom-color",
-          ],
-        },
-      ],
+      [{ color: ["#000000", "#ff0000", "#ffff00", "#00ff00", "#0000ff"] }],
     ],
   };
-  let formats = [
+
+  const formats = [
     "header",
     "height",
     "bold",
@@ -147,60 +101,50 @@ if (!context) {
     "align",
     "size",
   ];
-  const handleChangeQuill = (text:string) => {
-    setValue(text);
-  };
-  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
+
+  const handleChangeQuill = (text: string) => setValue(text);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    (await value) && handleNotes(value);
-    await uploadImage(Image[0]);
+    if (value) handleNotes(value);
+    if (Image) await uploadImage(Image);
     handleClose();
     setValue("");
   };
-  const handleHtml = (item:string) => {
-    const summary = item
-      .replace(/<[^>]*>/g, " ")
-      .replace(/\s{2,}/g, " ")
-      .trim();
-    return summary;
-  };
-  const handleTime = (props) => {
-    const hours = Math.floor(props / 3600);
-    const minutes = Math.floor((props - hours * 3600) / 60);
-    const seconds = Math.floor((props % 60).toString().padStart(2, "0"));
+
+  const handleHtml = (item: string): string =>
+    item.replace(/<[^>]*>/g, " ").replace(/\s{2,}/g, " ").trim();
+
+  const handleTime = (props: number | string): string => {
+    const timestamp = typeof props === "string" ? parseFloat(props) : props;
+
+    const hours = Math.floor(timestamp / 3600);
+    const minutes = Math.floor((timestamp % 3600) / 60);
+    const seconds = Math.floor(timestamp % 60);
 
     const timeString =
-      hours.toString().padStart(2, "0") +
-      "hr" +
-      ":" +
-      minutes.toString().padStart(2, "0") +
-      "min" +
-      ":" +
-      seconds +
-      "sec";
+      `${hours.toString().padStart(2, "0")}hr:` +
+      `${minutes.toString().padStart(2, "0")}min:` +
+      `${seconds.toString().padStart(2, "0")}sec`;
+
     setTimeStamp(timeString);
     return timeString;
   };
-  const updateNotesModal = (id) => {
-    setupdateBranchModal(true);
 
+  const updateNotesModal = (id: string) => {
+    setupdateBranchModal(true);
     setupdateId(id);
   };
-  const handleCloseUpdate = () => {
-    setupdateBranchModal(!updateBranchModal);
-  };
-  const handleChangeQuillUpdate = (props:string) => {
-    setValue(props);
-  };
-  const handleSubmitUpdate = async (e) => {
+
+  const handleCloseUpdate = () => setupdateBranchModal(false);
+
+  const handleChangeQuillUpdate = (text: string) => setValue(text);
+
+  const handleSubmitUpdate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setupdateId((prevUpdateId) => {
-      const newUpdateId = [prevUpdateId, value];
-      if (newUpdateId) {
-        updateNotes(newUpdateId);
-      }
-      return newUpdateId;
-    });
+    if (updateId && value) {
+      updateNotes([updateId, value]);
+    }
     handleCloseUpdate();
   };
 
@@ -211,8 +155,8 @@ if (!context) {
           <div className="d-flex flex-column col-12 col-xl-10 col-lg-8 col-md-7 col-sm-6">
             <h3>My Notes</h3>
             <p>
-              All your Notes at a single place .Click on any Note to go to
-              specific timestamp in the video
+              All your Notes at a single place. Click on any Note to go to a
+              specific timestamp in the video.
             </p>
           </div>
           <div className="addnotebtn col-12 col-xl-2 col-lg-3 col-md-4 col-sm-5">
@@ -222,20 +166,15 @@ if (!context) {
             </button>
           </div>
         </div>
-        <Modal
-          show={addBranchModal}
-          onHide={handleClose}
-          className="add-department-modal-main"
-          size="xl"
-        >
-          <Modal.Header closeButton className="add-department-modal-header">
-            <Modal.Title className="add-department-modal-title">
-              Add Notes
-            </Modal.Title>
+
+        {/* Add Modal */}
+        <Modal show={addBranchModal} onHide={handleClose} size="xl">
+          <Modal.Header closeButton>
+            <Modal.Title>Add Notes</Modal.Title>
           </Modal.Header>
-          <Modal.Body className="add-department-modal-body p-3">
-            <form className="modelvendorform" onSubmit={handleSubmit}>
-              <Label for="exampleEmail">Notes</Label>
+          <Modal.Body>
+            <form onSubmit={handleSubmit}>
+              <Label>Notes</Label>
               <ReactQuill
                 theme="snow"
                 value={value}
@@ -244,34 +183,46 @@ if (!context) {
                 formats={formats}
                 style={{ marginBottom: "2rem" }}
               />
-              <DropzoneArea
-                opens={true}
-                onChange={(propertyImages) => setImage(propertyImages)}
-              />
-              <div className="d-flex justify-content-end my-4 ">
-                <button type="submit" className="model-addNotebtn ">
+           <DropzoneArea
+  filesLimit={1}
+  showPreviews={true}
+  showPreviewsInDropzone={false}
+  useChipsForPreview
+  dropzoneText="Drag and drop a file here or click"
+  onChange={(files: File[]) => {
+    setFileObjects(files);
+    setImage(files[0] || null);
+  }}
+  fileObjects={fileObjects}
+/>
+
+              <div className="d-flex justify-content-end my-4">
+                <button type="submit" className="model-addNotebtn">
                   Add Note
                 </button>
               </div>
             </form>
           </Modal.Body>
         </Modal>
-        {/* {baseImage&&<img src={baseImage} height="200px" />} */}
-        {notes?.map((item, index) => {
+
+        {/* Notes List */}
+        {notes?.map((item: any, index: number) => {
           if (item.videoID === id && id !== null) {
             return (
-              <div className="d-flex col-12 col-xl-12 flex-column">
+              <div key={index} className="d-flex col-12 col-xl-12 flex-column">
                 <div className="mt-2">
-                  <div className="d-flex flex-column col-12 col-xl-12 justify-content-start">
+                  <div className="d-flex flex-column col-12 col-xl-12">
                     <p>{item.currentDate}</p>
                     <a
                       href="#"
-                      onClick={(e) => {
+                      onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                         e.preventDefault();
-                        handleSeek(item.timestamp);
+                        if (item.timestamp !== undefined) {
+                          handleSeek(item.timestamp);
+                        }
                       }}
                     >
-                      {handleTime(item.timestamp)}
+                      {item.timestamp !== undefined && handleTime(item.timestamp)}
                     </a>
                   </div>
                   <div className="notemaintext col-12 col-xl-12">
@@ -296,20 +247,15 @@ if (!context) {
             );
           }
         })}
-        <Modal
-          show={updateBranchModal}
-          onHide={handleCloseUpdate}
-          className="add-department-modal-main"
-          size="xl"
-        >
-          <Modal.Header closeButton className="add-department-modal-header">
-            <Modal.Title className="add-department-modal-title">
-              Update Notes
-            </Modal.Title>
+
+        {/* Update Modal */}
+        <Modal show={updateBranchModal} onHide={handleCloseUpdate} size="xl">
+          <Modal.Header closeButton>
+            <Modal.Title>Update Notes</Modal.Title>
           </Modal.Header>
-          <Modal.Body className="add-department-modal-body p-3">
-            <form className="modelvendorform" onSubmit={handleSubmitUpdate}>
-              <Label for="exampleEmail">Notes</Label>
+          <Modal.Body>
+            <form onSubmit={handleSubmitUpdate}>
+              <Label>Notes</Label>
               <ReactQuill
                 theme="snow"
                 value={value}
@@ -317,7 +263,6 @@ if (!context) {
                 modules={modules}
                 formats={formats}
               />
-
               <div className="d-flex justify-content-end my-4">
                 <button type="submit" className="model-createbtn text-white">
                   Create

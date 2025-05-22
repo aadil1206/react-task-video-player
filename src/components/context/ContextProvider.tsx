@@ -80,20 +80,20 @@ const [player, setPlayer] = useState<YouTubePlayer | null>(null);
       })
     );
   };
-  const updateNotes = (props:string) => {
-    const newNote = props[1];
-    setNotes(
-      notes.map((item) => {
-        if (item.useId === props[0]) {
-          return {
-            ...item,
-            note: newNote,
-          };
-        }
-        return item;
-      })
-    );
-  };
+const updateNotes = ([id, newNote]: [string, string]) => {
+  setNotes(
+    notes.map((item) => {
+      if (item.useId === id) {
+        return {
+          ...item,
+          note: newNote,
+        };
+      }
+      return item;
+    })
+  );
+};
+
 
   return (
     <Context.Provider
