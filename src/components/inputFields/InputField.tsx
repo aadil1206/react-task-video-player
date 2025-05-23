@@ -1,63 +1,31 @@
-import React from 'react';
+import React, { ChangeEvent } from "react";
 
-
-type propss ={
-  label:string,
-  placeholder:string,
-  htmlFor:string,
-
-  error:string,
-  errorMsg:string,
-  value:number,
-  onChange:()=>void,
-  textSize:number,
-  height:number,
-  className:string
+interface InputFieldProps {
+  label: string;
+  placeholder: string;
+  value: string;
+  error?: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
-const InputField = (props:propss) => {
-  const {
-    label,
-    htmlFor,
-    placeholder,
-    error,
-    errorMsg,
-    value,
-    onChange,
-    textSize,
-    height,
-    className,
-  } = props;
 
+const InputField: React.FC<InputFieldProps> = ({
+  label,
+  placeholder,
+  value,
+  error,
+  onChange,
+}) => {
   return (
-    <div className={`flex flex-col gap-2 w-full ${className}`}>
-      {label ? (
-        <label className="text-[#121212]" htmlFor={htmlFor}>
-          {label}
-        </label>
-      ) : null}
-      <div className="relative">
-        <input
-          type={"text"}
-          placeholder={placeholder}
-          className={`w-full py-2 px-3 rounded-md bg-[#d9d9d940] text-[#121212] ${textSize} ${height} placeholder:text-[#ffffff80] ${
-            error ? "border border-red-500" : ""
-          }`}
-          value={value}
-          onChange={onChange}
-          autoComplete="on"
-        />
-        {error ? (
-          <div
-            className={`error-msg break-words text-red-500 text-sm ${
-              error ? "active" : ""
-            }`}
-          >
-            {errorMsg}
-          </div>
-        ) : (
-          <></>
-        )}
-      </div>
+    <div className="flex flex-col gap-1">
+      <label className="font-semibold text-sm">{label}</label>
+      <input
+        type="text"
+        className={`p-2 border rounded ${error ? "border-red-500" : "border-gray-300"}`}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+      />
+      {error && <p className="text-red-500 text-xs">{error}</p>}
     </div>
   );
 };

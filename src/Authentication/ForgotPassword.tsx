@@ -1,25 +1,41 @@
-import { useState, useEffect } from "react";
-import React from 'react';
+import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { Link } from "react-router-dom";
 import InputField from "../components/inputFields/InputField";
 import validate from "validate.js";
 import { IoIosArrowBack } from "react-icons/io";
 import { emailSchema } from "../Schema/Schema";
-
-// import {forgotPassword} from "./api/index";
+// import { forgotPassword } from "./api/index";
 import { toast } from "react-toastify";
 
-const ForgotPassword = () => {
-  const intialState = {
+interface FormValues {
+  email: string;
+}
+
+interface FormState {
+  isValid: boolean;
+  touched: {
+    [key: string]: boolean;
+  };
+  errors: {
+    [key: string]: string[];
+  };
+  values: FormValues;
+}
+
+const ForgotPassword: React.FC = () => {
+  const initialState: FormState = {
     isValid: false,
     touched: {},
     errors: {},
-    values: { email: null },
+    values: { email: "" },
   };
-  const [formState, setFormState] = useState({ ...intialState });
+
+  const [formState, setFormState] = useState<FormState>({ ...initialState });
+
   const schema = {
     email: emailSchema,
   };
+
   useEffect(() => {
     const errors = validate(formState.values, schema);
     setFormState((prevFormState) => ({
@@ -27,120 +43,102 @@ const ForgotPassword = () => {
       isValid: !errors,
       errors: errors || {},
     }));
-  }, [formState.values, formState.isValid]);
+  }, [formState.values]);
 
-  const hasError = (field) =>
+  const hasError = (field: string): boolean =>
     !!(formState.touched[field] && formState.errors[field]);
 
-  const displayErrorMessage = function (msg) {
+  const displayErrorMessage = (msg: any): string => {
     if (msg) {
       if (typeof msg === "object") {
-        if (msg.length == 1) {
+        if (msg.length === 1) {
           return msg[0];
         }
-        return msg[0].substring(0, msg[0].indexOf("."));
+        return msg[0].substring(0, msg[0].indexOf(".")) || msg[0];
       }
     }
     return msg;
   };
-  const handleChange = (event) => {
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     event.persist();
-    setFormState((formState) => ({
-      ...formState,
+    setFormState((prevFormState) => ({
+      ...prevFormState,
       values: {
-        ...formState.values,
+        ...prevFormState.values,
         email: event.target.value,
       },
       touched: {
-        ...formState.touched,
+        ...prevFormState.touched,
         email: true,
       },
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     // forgotPassword(formState.values).then(response => {
-    //   if(response.data.code === "200"){
+    //   if (response.data.code === "200") {
     //     toast(response.data?.message, {
     //       position: "top-right",
     //       autoClose: 2000,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true,
     //       className: "djfy-toast border-gradient",
     //     });
-    //   }else{
+    //   } else {
     //     toast(response.data?.message, {
     //       position: "top-right",
     //       autoClose: 2000,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true,
     //       className: "djfy-toast border-gradient",
     //     });
     //   }
-    // })
+    // });
   };
+
   return (
-    <>
-      <div className="login-container container mx-auto">
-        <div className="grid grid-cols-4 gap-4 login-wrapper w-full">
-          <div className="col-span-1 hidden sm:flex"></div>
-          <div className="sm:col-span-2 col-span-4  flex flex-col justify-center items-center gap-3 p-8 lg:p-16 lg:bg-[#d9d9d940]">
-            <div className="flex flex-col gap-1 w-full mb-5">
-              <Link
-                className="brand-logo mb-5"
-                to="/"
-                onClick={(e) => e.preventDefault()}
-              >
-                {/* <img src={DJFYText} alt='logo' /> */}
-              </Link>
-              <div className="font-bold text-2xl">Forgot Password? 🔒</div>
-              <div className="text-sm lg:text-sm">
-                Enter your email and we&apos;ll send you instructions to reset
-                your password
-              </div>
-            </div>
-
-            <form
-              className="flex flex-col gap-5 w-full mb-8"
-              // onSubmit={() => handleSubmit()}
-            >
-              <InputField
-                placeholder={"you@example.com"}
-                label={"Email"}
-                error={hasError("email")}
-                errorMsg={displayErrorMessage(formState.errors.email)}
-                value={formState.values.email}
-                onChange={handleChange}
-              />
-
-              <button
-                // to={"#"}
-                // type='submit'
-                onClick={handleSubmit}
-                className={`djfy-btn  ${
-                  !formState.isValid ? "disabled" : ""
-                } text-center py-2 rounded-lg`}
-                // disabled={!formState.isValid}
-              >
-                Send Reset Link
-              </button>
-            </form>
+    <div className="login-container container mx-auto">
+      <div className="grid grid-cols-4 gap-4 login-wrapper w-full">
+        <div className="col-span-1 hidden sm:flex"></div>
+        <div className="sm:col-span-2 col-span-4 flex flex-col justify-center items-center gap-3 p-8 lg:p-16 lg:bg-[#d9d9d940]">
+          <div className="flex flex-col gap-1 w-full mb-5">
             <Link
-              to={"/"}
-              type="submit"
-              className="text-center py-2 flex gap-2 justify-center items-center"
+              className="brand-logo mb-5"
+              to="/"
+              onClick={(e) => e.preventDefault()}
             >
-              <IoIosArrowBack size={20} />
-              Back to login
+              {/* <img src={DJFYText} alt="logo" /> */}
             </Link>
+            <div className="font-bold text-2xl">Forgot Password? 🔒</div>
+            <div className="text-sm lg:text-sm">
+              Enter your email and we&apos;ll send you instructions to reset your password
+            </div>
           </div>
-          <div className="col-span-1 hidden sm:flex"></div>
+
+          <form className="flex flex-col gap-5 w-full mb-8" onSubmit={handleSubmit}>
+            <InputField
+              placeholder="you@example.com"
+              label="Email"
+              error={hasError("email") ? displayErrorMessage(formState.errors.email) : ""}
+              value={formState.values.email}
+              onChange={handleChange}
+            />
+
+            <button
+              type="submit"
+              className={`djfy-btn ${!formState.isValid ? "disabled" : ""} text-center py-2 rounded-lg`}
+              disabled={!formState.isValid}
+            >
+              Send Reset Link
+            </button>
+          </form>
+
+          <Link to="/" className="text-center py-2 flex gap-2 justify-center items-center">
+            <IoIosArrowBack size={20} />
+            Back to login
+          </Link>
         </div>
+        <div className="col-span-1 hidden sm:flex"></div>
       </div>
-    </>
+    </div>
   );
 };
 
