@@ -6,9 +6,16 @@ import React from 'react';
 const PrivateRoutes = () => {
   const token = localStorage.getItem("email");
   const token2 = localStorage.getItem("password");
-  const { EmaiDB, setEmailDB, PasswordDB, setPasswordDB } = useContext(Context);
+  const context = useContext(Context);
+
+if (!context) {
+  throw new Error("Context must be used within a Provider");
+}
+
+const { EmailDB, setEmailDB, PasswordDB, setPasswordDB } = context;
+ 
   // let auth = {'token' : token }
-  return EmaiDB && PasswordDB ? <Outlet /> : <Navigate to="/" />;
+  return EmailDB && PasswordDB ? <Outlet /> : <Navigate to="/" />;
 };
 
 export default PrivateRoutes;

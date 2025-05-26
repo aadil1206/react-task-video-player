@@ -11,7 +11,7 @@ interface Note {
 }
 
 type AuthContextType = {
-    EmaiDB: string;
+    EmailDB: string;
     setEmailDB: (value: string) => void;
 videoRef: React.MutableRefObject<YouTubePlayer | null>;
 

@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 import Context from "../components/context";
 const Login = () => {
   const navigate = useNavigate();
-  const { EmaiDB, setEmailDB, PasswordDB, setPasswordDB } = useContext(Context);
+  const { EmailDB, setEmailDB, PasswordDB, setPasswordDB } = useContext(Context);
   const initialState = {
     isValid: false,
     touched: {},
@@ -106,8 +106,17 @@ const Login = () => {
       draggable: true,
       className: "djfy-toast border-gradient",
     });
-    setPasswordDB(localStorage.getItem("password"));
-    setEmailDB(localStorage.getItem("email"));
+   
+const getPass = localStorage.getItem("password");
+if (getPass) {
+  setPasswordDB(getPass);
+}
+
+const getmail = localStorage.getItem("email");
+if (getmail) {
+  setEmailDB(getmail); // ✅ Correct: check `getmail` before setting
+}
+
     if (formState.values.email && formState.values.password) {
       navigate("/mainPage");
     }

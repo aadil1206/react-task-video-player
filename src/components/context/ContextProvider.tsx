@@ -10,7 +10,7 @@ const ContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [baseImage, setBaseImage] = useState<string>("");
   const [TimeStamp, setTimeStamp] = useState("");
 const [Image, setImage] = useState<File | null>(null);
-  const [EmaiDB, setEmailDB] = useState<string>("");
+  const [EmailDB, setEmailDB] = useState<string>("");
 
   type passowrddb ={
 
@@ -119,7 +119,7 @@ const updateNotes = ([id, newNote]: [string, string]) => {
         updateNotes,
         Image,
         setImage,
-        EmaiDB,
+        EmailDB,
         setEmailDB,
         PasswordDB,
         setPasswordDB,
