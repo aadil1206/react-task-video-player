@@ -7,24 +7,24 @@ import { requiredSchema } from "../Schema/Schema";
 import { toast } from "react-toastify";
 import Context from "../components/context";
 
-// Types for form state
+// Define context type properly
+interface AuthContextType {
+  EmailDB: string;
+  setEmailDB: (email: string) => void;
+  PasswordDB: string;
+  setPasswordDB: (password: string) => void;
+}
+
 interface FormState {
   isValid: boolean;
-  touched: {
-    [key: string]: boolean;
-  };
-  errors: {
-    [key: string]: string[] | undefined;
-  };
-  values: {
-    email: string;
-    password: string;
-  };
+  touched: { [key: string]: boolean };
+  errors: { [key: string]: string[] | undefined };
+  values: { email: string; password: string };
 }
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  const { EmailDB, setEmailDB, PasswordDB, setPasswordDB } = useContext(Context);
+  const context = useContext(Context) as AuthContextType;
 
   const initialState: FormState = {
     isValid: false,
@@ -62,14 +62,14 @@ const Login: React.FC = () => {
     }));
   }, [formState.values]);
 
-  const hasError = (field: string): boolean =>
-    !!(formState.touched[field] && formState.errors[field]);
+  const hasError = (field: string): string => {
+    return formState.touched[field] && formState.errors[field]
+      ? "true"
+      : "";
+  };
 
-  const displayErrorMessage = (msg: string[] | undefined): string | undefined => {
-    if (msg && msg.length > 0) {
-      return msg[0].split(".")[0];
-    }
-    return msg?.[0];
+  const displayErrorMessage = (msg: string[] | undefined): string => {
+    return msg?.[0]?.split(".")[0] ?? "";
   };
 
   const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
@@ -108,10 +108,10 @@ const Login: React.FC = () => {
     });
 
     const getPass = localStorage.getItem("password");
-    if (getPass) setPasswordDB(getPass);
-
     const getMail = localStorage.getItem("email");
-    if (getMail) setEmailDB(getMail);
+
+    if (getPass) context.setPasswordDB(getPass);
+    if (getMail) context.setEmailDB(getMail);
 
     if (formState.values.email && formState.values.password) {
       navigate("/mainPage");
@@ -126,14 +126,12 @@ const Login: React.FC = () => {
     <div className="login-container container mx-auto">
       <div className="grid grid-cols-4 p-4 login-wrapper w-full mx-auto content-center">
         <div className="col-span-1 hidden sm:flex"></div>
-
         <div className="col-span-4 sm:col-span-2 flex flex-col justify-center items-center gap-3 p-8 lg:p-16 bg-[#ff9933]">
           <div className="flex flex-col gap-1 w-full mb-8">
             <div className="text-sm lg:text-sm text-[#121212]">
               Please sign-in to your account
             </div>
           </div>
-
           <form className="flex flex-col gap-5 w-full mb-8">
             <InputField
               placeholder="Enter your Email or Username"
@@ -143,7 +141,6 @@ const Login: React.FC = () => {
               value={formState.values.email}
               onChange={handleChangeEmail}
             />
-
             <InputPassword
               label="Password"
               placeholder="Enter your Password"
@@ -154,18 +151,32 @@ const Login: React.FC = () => {
               value={formState.values.password}
               onChange={handleChangePassword}
             />
-
+            <div className="flex items-center justify-between">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={handleRememberMe}
+                />{" "}
+                Remember Me
+              </label>
+              <Link to="/forgot-password">Forgot Password?</Link>
+            </div>
             <button
               type="submit"
-              className="rounded-lg w-[140px] h-[36px] bg-[#121212] text-white"
               onClick={handleSubmit}
+              className="bg-black text-white py-2 px-4 rounded"
             >
-              Sign in
+              Login
             </button>
           </form>
+          <p className="text-sm">
+            Don’t have an account?{" "}
+            <Link to="/signup" className="text-blue-600 underline">
+              Sign Up
+            </Link>
+          </p>
         </div>
-
-        <div className="col-span-1 hidden sm:flex"></div>
       </div>
     </div>
   );
