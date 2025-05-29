@@ -1,89 +1,56 @@
-// ** React Imports
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import React from 'react';
+// src/components/inputFields/InputPassword.tsx
 
-// ** Third Party Components
+import React, { useState, ChangeEvent } from "react";
 
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-type propss ={
-  label:string,
-  placeholder:string,
-  htmlFor:string,
-
-  error:string,
-  errorMsg:string,
-  value:number,
-  onChange:()=>void,
-  forgotPassword:number
+export interface InputPasswordProps {
+  placeholder: string;
+  label: string;
+  error: string;
+  errorMsg?: string;
+  forgotPassword: boolean; // fixed from number
+  visible: boolean;
+  value: string; // fixed from number
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const InputPassword = (props:propss) => {
-  const {
-    label,
-    htmlFor,
-    placeholder,
-    error,
-    errorMsg,
-    forgotPassword,
-    value,
-    onChange,
-  } = props;
+const InputPassword: React.FC<InputPasswordProps> = ({
+  placeholder,
+  label,
+  error,
+  errorMsg,
+  forgotPassword,
+  visible,
+  value,
+  onChange,
+}) => {
+  const [showPassword, setShowPassword] = useState(visible);
 
-  const [inputVisibility, setInputVisibility] = useState<boolean>(false);
-
-  const renderIcon = () => {
-    if (inputVisibility === false) {
-      return <AiOutlineEyeInvisible size={20} />;
-    } else {
-      return <AiOutlineEye size={20} />;
-    }
-  };
+  const toggleVisibility = () => setShowPassword(!showPassword);
 
   return (
-    <div className="flex flex-col gap-2 w-full">
-      <div className="flex justify-between items-start">
-        {label ? (
-          <label className="text-[#121212]" htmlFor={htmlFor}>
-            {label}
-          </label>
-        ) : null}
-        {forgotPassword ? (
-          <Link to={"/forgotPassword"} className="text-[#F7AA16]">
-            Forgot Password?
-          </Link>
-        ) : (
-          <></>
-        )}
-      </div>
+    <div className="flex flex-col gap-1">
+      <label className="font-semibold">{label}</label>
       <div className="relative">
         <input
-          type={inputVisibility === false ? "password" : "text"}
-          placeholder={placeholder ? placeholder : "············"}
-          className={`w-full py-2 px-3 rounded-md bg-[#d9d9d940] text-[#121212] text-sm placeholder:text-[#ffffff80] ${
-            error ? "border border-red-500" : ""
-          }`}
+          type={showPassword ? "text" : "password"}
+          className={`p-2 w-full border ${error ? "border-red-500" : "border-gray-300"} rounded`}
+          placeholder={placeholder}
           value={value}
           onChange={onChange}
-          autoComplete="on"
         />
-        <div
-          className="cursor-pointer absolute right-2 top-[50%] translate-y-[-50%]"
-          onClick={() => setInputVisibility(!inputVisibility)}
+        <button
+          type="button"
+          onClick={toggleVisibility}
+          className="absolute right-2 top-2 text-sm"
         >
-          {renderIcon()}
-        </div>
+          {showPassword ? "Hide" : "Show"}
+        </button>
       </div>
-      {error ? (
-        <div
-          className={`error-msg break-words text-red-500 text-sm ${
-            error ? "active" : ""
-          }`}
-        >
-          {errorMsg}
+      {error && <span className="text-red-500 text-sm">{errorMsg}</span>}
+      {forgotPassword && (
+        <div className="text-sm text-blue-600 mt-1 cursor-pointer">
+          Forgot Password?
         </div>
-      ) : (
-        <></>
       )}
     </div>
   );
