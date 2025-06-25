@@ -23,7 +23,9 @@ const InputField: React.FC<InputFieldProps> = ({
     <div className="flex flex-col gap-1">
       <label className="font-semibold">{label}</label>
       <input
-        className={`p-2 border ${error ? "border-red-500" : "border-gray-300"} rounded`}
+        className={`p-2 border ${
+          error ? "border-red-500" : "border-gray-300"
+        } rounded`}
         placeholder={placeholder}
         value={value}
         onChange={onChange}

@@ -4,7 +4,7 @@ import InputField from "../components/inputFields/InputField";
 import validate from "validate.js";
 import { IoIosArrowBack } from "react-icons/io";
 import { emailSchema } from "../Schema/Schema";
-// import { forgotPassword } from "./api/index";
+
 import { toast } from "react-toastify";
 
 interface FormValues {
@@ -77,21 +77,6 @@ const ForgotPassword: React.FC = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    // forgotPassword(formState.values).then(response => {
-    //   if (response.data.code === "200") {
-    //     toast(response.data?.message, {
-    //       position: "top-right",
-    //       autoClose: 2000,
-    //       className: "djfy-toast border-gradient",
-    //     });
-    //   } else {
-    //     toast(response.data?.message, {
-    //       position: "top-right",
-    //       autoClose: 2000,
-    //       className: "djfy-toast border-gradient",
-    //     });
-    //   }
-    // });
   };
 
   return (
@@ -104,34 +89,45 @@ const ForgotPassword: React.FC = () => {
               className="brand-logo mb-5"
               to="/"
               onClick={(e) => e.preventDefault()}
-            >
-              {/* <img src={DJFYText} alt="logo" /> */}
-            </Link>
+            ></Link>
             <div className="font-bold text-2xl">Forgot Password? 🔒</div>
             <div className="text-sm lg:text-sm">
-              Enter your email and we&apos;ll send you instructions to reset your password
+              Enter your email and we&apos;ll send you instructions to reset
+              your password
             </div>
           </div>
 
-          <form className="flex flex-col gap-5 w-full mb-8" onSubmit={handleSubmit}>
+          <form
+            className="flex flex-col gap-5 w-full mb-8"
+            onSubmit={handleSubmit}
+          >
             <InputField
               placeholder="you@example.com"
               label="Email"
-              error={hasError("email") ? displayErrorMessage(formState.errors.email) : ""}
+              error={
+                hasError("email")
+                  ? displayErrorMessage(formState.errors.email)
+                  : ""
+              }
               value={formState.values.email}
               onChange={handleChange}
             />
 
             <button
               type="submit"
-              className={`djfy-btn ${!formState.isValid ? "disabled" : ""} text-center py-2 rounded-lg`}
+              className={`djfy-btn ${
+                !formState.isValid ? "disabled" : ""
+              } text-center py-2 rounded-lg`}
               disabled={!formState.isValid}
             >
               Send Reset Link
             </button>
           </form>
 
-          <Link to="/" className="text-center py-2 flex gap-2 justify-center items-center">
+          <Link
+            to="/"
+            className="text-center py-2 flex gap-2 justify-center items-center"
+          >
             <IoIosArrowBack size={20} />
             Back to login
           </Link>

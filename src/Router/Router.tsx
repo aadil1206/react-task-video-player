@@ -1,12 +1,12 @@
 import { lazy } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import React from 'react';
+import React from "react";
 import Layout from "../Layout/Layout";
 import ForgotPassword from "../Authentication/ForgotPassword";
 import ResetPassword from "../Authentication/ResetPassword";
 import PrivateRoutes from "./PrivateRoute";
 import ErrorPage from "../error/ErrorPage";
-// Modules
+
 const Login = lazy(() => import("../Authentication/Login"));
 
 const AllRoutes = () => {

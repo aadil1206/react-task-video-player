@@ -7,9 +7,9 @@ export interface InputPasswordProps {
   label: string;
   error: string;
   errorMsg?: string;
-  forgotPassword: boolean; // fixed from number
+  forgotPassword: boolean;
   visible: boolean;
-  value: string; // fixed from number
+  value: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -33,7 +33,9 @@ const InputPassword: React.FC<InputPasswordProps> = ({
       <div className="relative">
         <input
           type={showPassword ? "text" : "password"}
-          className={`p-2 w-full border ${error ? "border-red-500" : "border-gray-300"} rounded`}
+          className={`p-2 w-full border ${
+            error ? "border-red-500" : "border-gray-300"
+          } rounded`}
           placeholder={placeholder}
           value={value}
           onChange={onChange}

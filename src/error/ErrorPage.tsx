@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import React from 'react';
-
-// import errorArt from '../../assets/images/error/error-art.webp'
+import React from "react";
 
 const ErrorPage = () => {
   const navigate = useNavigate();

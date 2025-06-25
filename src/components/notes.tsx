@@ -7,9 +7,7 @@ import "../App.css";
 import { DropzoneArea } from "mui-file-dropzone";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import {
-  Label,
-} from "reactstrap";
+import { Label } from "reactstrap";
 
 const Notes: React.FC = () => {
   const context = useContext(Context);
@@ -75,11 +73,7 @@ const Notes: React.FC = () => {
       ["bold", "italic", "underline", "strike", "blockquote"],
       [{ list: "ordered" }, { list: "bullet" }],
       ["link", "image"],
-      [
-        { indent: "-1" },
-        { indent: "+1" },
-        { align: [] },
-      ],
+      [{ indent: "-1" }, { indent: "+1" }, { align: [] }],
       [{ color: ["#000000", "#ff0000", "#ffff00", "#00ff00", "#0000ff"] }],
     ],
   };
@@ -113,7 +107,10 @@ const Notes: React.FC = () => {
   };
 
   const handleHtml = (item: string): string =>
-    item.replace(/<[^>]*>/g, " ").replace(/\s{2,}/g, " ").trim();
+    item
+      .replace(/<[^>]*>/g, " ")
+      .replace(/\s{2,}/g, " ")
+      .trim();
 
   const handleTime = (props: number | string): string => {
     const timestamp = typeof props === "string" ? parseFloat(props) : props;
@@ -183,18 +180,18 @@ const Notes: React.FC = () => {
                 formats={formats}
                 style={{ marginBottom: "2rem" }}
               />
-           <DropzoneArea
-  filesLimit={1}
-  showPreviews={true}
-  showPreviewsInDropzone={false}
-  useChipsForPreview
-  dropzoneText="Drag and drop a file here or click"
-  onChange={(files: File[]) => {
-    setFileObjects(files);
-    setImage(files[0] || null);
-  }}
-  fileObjects={fileObjects}
-/>
+              <DropzoneArea
+                filesLimit={1}
+                showPreviews={true}
+                showPreviewsInDropzone={false}
+                useChipsForPreview
+                dropzoneText="Drag and drop a file here or click"
+                onChange={(files: File[]) => {
+                  setFileObjects(files);
+                  setImage(files[0] || null);
+                }}
+                fileObjects={fileObjects}
+              />
 
               <div className="d-flex justify-content-end my-4">
                 <button type="submit" className="model-addNotebtn">
@@ -222,7 +219,8 @@ const Notes: React.FC = () => {
                         }
                       }}
                     >
-                      {item.timestamp !== undefined && handleTime(item.timestamp)}
+                      {item.timestamp !== undefined &&
+                        handleTime(item.timestamp)}
                     </a>
                   </div>
                   <div className="notemaintext col-12 col-xl-12">

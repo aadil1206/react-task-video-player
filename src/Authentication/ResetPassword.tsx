@@ -112,23 +112,12 @@ const ResetPassword = () => {
 
   const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
-    // resetPassword(formState.values).then(response => {
-    //   if (response.data.code === "200") {
-    //     toast(response.data?.message, { ... });
-    //     navigate('/');
-    //   } else {
-    //     toast(response.data?.message, { ... });
-    //   }
-    // });
   };
 
   return (
     <div className="login-container container mx-auto">
       <div className="grid grid-cols-1 grid-rows-1 lg:grid-cols-3 gap-4 login-wrapper w-full">
-        <div className="col-span-3 lg:col-span-2 hidden lg:flex justify-center items-center w-full lg:p-16">
-          {/* <img src={ForgotPasswordArt} alt="Login Cover" /> */}
-        </div>
+        <div className="col-span-3 lg:col-span-2 hidden lg:flex justify-center items-center w-full lg:p-16"></div>
 
         <div className="col-span-3 lg:col-span-1 flex flex-col justify-center items-center gap-3 p-8 lg:p-16 lg:bg-[#d9d9d940]">
           <div className="flex flex-col gap-1 w-full mb-5">
@@ -136,9 +125,7 @@ const ResetPassword = () => {
               className="brand-logo mb-5"
               to="/"
               onClick={(e) => e.preventDefault()}
-            >
-              {/* <img src={DJFYText} alt="logo" /> */}
-            </Link>
+            ></Link>
             <div className="font-bold text-2xl">Reset Password! ✅</div>
             <div className="text-sm lg:text-sm">
               Enter New Password & Confirm Your Password To Login Again!!
@@ -161,9 +148,7 @@ const ResetPassword = () => {
               label="Confirm Password"
               placeholder="Enter confirm Password"
               error={hasError("confirm_password") ? "true" : ""}
-              errorMsg={displayErrorMessage(
-                formState.errors.confirm_password
-              )}
+              errorMsg={displayErrorMessage(formState.errors.confirm_password)}
               forgotPassword={false}
               visible={false}
               value={formState.values.confirm_password || ""}

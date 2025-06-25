@@ -1,6 +1,5 @@
-
 import "./App.css";
-import React from 'react';
+import React from "react";
 import Notes from "./components/notes";
 import Video from "./components/Video";
 import Router from "./Router/Router";
@@ -10,9 +9,9 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <div className="App">
-  <Router/>
-  <ToastContainer
-        position='top-right'
+      <Router />
+      <ToastContainer
+        position="top-right"
         autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -21,7 +20,7 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme='dark'
+        theme="dark"
       />
     </div>
   );

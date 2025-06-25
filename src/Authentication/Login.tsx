@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useContext, ChangeEvent, FormEvent } from "react";
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  ChangeEvent,
+  FormEvent,
+} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import InputPassword from "../components/inputFields/InputPassword";
 import InputField from "../components/inputFields/InputField";
@@ -63,9 +69,7 @@ const Login: React.FC = () => {
   }, [formState.values]);
 
   const hasError = (field: string): string => {
-    return formState.touched[field] && formState.errors[field]
-      ? "true"
-      : "";
+    return formState.touched[field] && formState.errors[field] ? "true" : "";
   };
 
   const displayErrorMessage = (msg: string[] | undefined): string => {
