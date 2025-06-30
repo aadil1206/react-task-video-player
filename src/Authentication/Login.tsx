@@ -13,7 +13,7 @@ import { requiredSchema } from "../Schema/Schema";
 import { toast } from "react-toastify";
 import Context from "../components/context";
 
-// Define context type properly
+
 interface AuthContextType {
   EmailDB: string;
   setEmailDB: (email: string) => void;

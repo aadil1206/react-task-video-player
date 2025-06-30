@@ -164,7 +164,7 @@ const Notes: React.FC = () => {
           </div>
         </div>
 
-        {/* Add Modal */}
+   
         <Modal show={addBranchModal} onHide={handleClose} size="xl">
           <Modal.Header closeButton>
             <Modal.Title>Add Notes</Modal.Title>
@@ -202,7 +202,7 @@ const Notes: React.FC = () => {
           </Modal.Body>
         </Modal>
 
-        {/* Notes List */}
+    
         {notes?.map((item: any, index: number) => {
           if (item.videoID === id && id !== null) {
             return (
@@ -246,7 +246,7 @@ const Notes: React.FC = () => {
           }
         })}
 
-        {/* Update Modal */}
+  
         <Modal show={updateBranchModal} onHide={handleCloseUpdate} size="xl">
           <Modal.Header closeButton>
             <Modal.Title>Update Notes</Modal.Title>

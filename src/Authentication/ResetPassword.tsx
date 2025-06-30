@@ -1,8 +1,8 @@
 import { useState, useEffect, ChangeEvent, MouseEvent } from "react";
 import { useSearchParams, Link, useNavigate } from "react-router-dom";
-import React from "react";
+
 import InputPassword from "../components/inputFields/InputPassword";
-// import { resetPassword } from "./api/index";
+
 import { toast } from "react-toastify";
 import validate from "validate.js";
 
