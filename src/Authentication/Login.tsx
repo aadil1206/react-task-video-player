@@ -192,7 +192,7 @@ const handleSubmit = (e: FormEvent<HTMLButtonElement>) => {
                 />{" "}
                 Remember Me
               </label>
-              <Link to="/forgot-password">Forgot Password?</Link>
+              {/* <Link to="/forgotPassword" className="text-[#212529]" >Forgot Password?</Link> */}
             </div>
             <button
               type="submit"
@@ -202,12 +202,12 @@ const handleSubmit = (e: FormEvent<HTMLButtonElement>) => {
               Login
             </button>
           </form>
-          <p className="text-sm">
+          {/* <p className="text-sm">
             Don’t have an account?{" "}
-            <Link to="/signup" className="text-blue-600 underline">
+            <Link to="/signup" className="text-[#212529] underline">
               Sign Up
             </Link>
-          </p>
+          </p> */}
         </div>
       </div>
     </div>

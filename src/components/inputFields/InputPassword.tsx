@@ -49,11 +49,11 @@ const InputPassword: React.FC<InputPasswordProps> = ({
         </button>
       </div>
       {error && <span className="text-red-500 text-sm">{errorMsg}</span>}
-      {forgotPassword && (
-        <div className="text-sm text-blue-600 mt-1 cursor-pointer">
+      {/* {forgotPassword && (
+        <div className="text-sm text-[#212529] mt-1 cursor-pointer">
           Forgot Password?
         </div>
-      )}
+      )} */}
     </div>
   );
 };
