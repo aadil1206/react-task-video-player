@@ -96,31 +96,59 @@ const Login: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+const handleSubmit = (e: FormEvent<HTMLButtonElement>) => {
+  e.preventDefault();
 
-    localStorage.setItem("email", formState.values.email);
-    localStorage.setItem("password", formState.values.password);
+  const { email, password } = formState.values;
 
-    toast("Successful login", {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const strongPasswordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+  // Email validation
+  if (!email || !emailRegex.test(email)) {
+    toast.error("Please enter a valid email.", {
       position: "top-right",
       autoClose: 2000,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      className: "djfy-toast border-gradient",
     });
+    return;
+  }
 
-    const getPass = localStorage.getItem("password");
-    const getMail = localStorage.getItem("email");
+  // Password strength validation
+  if (!password || !strongPasswordRegex.test(password)) {
+    toast.error(
+      "Password must be at least 8 characters and include uppercase, lowercase, number, and special character.",
+      {
+        position: "top-right",
+        autoClose: 3000,
+      }
+    );
+    return;
+  }
 
-    if (getPass) context.setPasswordDB(getPass);
-    if (getMail) context.setEmailDB(getMail);
+  // Save to localStorage
+  localStorage.setItem("email", email);
+  localStorage.setItem("password", password);
 
-    if (formState.values.email && formState.values.password) {
-      navigate("/mainPage");
-    }
-  };
+  toast.success("Successful login", {
+    position: "top-right",
+    autoClose: 2000,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    className: "djfy-toast border-gradient",
+  });
+
+  const getPass = localStorage.getItem("password");
+  const getMail = localStorage.getItem("email");
+
+  if (getPass) context.setPasswordDB(getPass);
+  if (getMail) context.setEmailDB(getMail);
+
+  navigate("/mainPage");
+};
+
+
 
   const handleRememberMe = (event: ChangeEvent<HTMLInputElement>) => {
     setRememberMe(event.target.checked);
